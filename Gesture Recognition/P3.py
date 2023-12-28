@@ -5,7 +5,7 @@ import math
 def empty(a):
    pass
 
-def findHands():
+def findHands(frame,thresh):
    
    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
    contours = max(contours, key=lambda x: cv2.contourArea(x))
