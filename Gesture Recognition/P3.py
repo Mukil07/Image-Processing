@@ -25,6 +25,7 @@ cap.set(3,900)
 cap.set(4,900)
 cv2.namedWindow('controls')
 
+# Finding colour of hands using trackbar
 cv2.createTrackbar('hsv_min','controls',0,0,empty)
 cv2.createTrackbar('sat_min','controls',21,21,empty)
 cv2.createTrackbar('val_min','controls',105,105,empty)
@@ -99,6 +100,7 @@ while True:
       
       count1 = 1
       for i in range(defects1.shape[0]):
+         
          # calculate the angle
          s, e, f, d = defects1[i][0]
          start = tuple(contours1[s][0])
@@ -107,11 +109,15 @@ while True:
          a = np.sqrt((end[0] - start[0]) ** 2 + (end[1] - start[1]) ** 2)
          b = np.sqrt((far[0] - start[0]) ** 2 + (far[1] - start[1]) ** 2)
          c = np.sqrt((end[0] - far[0]) ** 2 + (end[1] - far[1]) ** 2)
-         angle = np.arccos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c))# cosine theorem
+
+         # cosine theorem
+         angle = np.arccos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c))
          s=(a+b+c)/2
          area=math.sqrt(s*(s-a)*(s-b)*(s-c))
          error= (2*area)/a
-         if angle <= np.pi/2 and error > 50:  # angle less than 45 degree, treat as fingers
+         
+         # angle less than 90 degree, treat as fingers
+         if angle <= np.pi/2 and error > 50: 
             count1+= 1
             cv2.circle(roi1, far, 4, [0, 0, 255], -1)
       
@@ -129,6 +135,7 @@ while True:
       
       count2 = 1
       for i in range(defects2.shape[0]):
+         
          # calculate the angle
          s, e, f, d= defects2[i][0]
          start= tuple(contours2[s][0])
@@ -137,11 +144,15 @@ while True:
          a= np.sqrt((end[0] - start[0])**2 + (end[1] - start[1])**2)
          b= np.sqrt((far[0] - start[0])**2 + (far[1] - start[1])**2)
          c= np.sqrt((end[0] - far[0])**2 + (end[1] - far[1])**2)
-         angle = np.arccos((b**2 + c**2 - a**2) / (2*b*c))# cosine theorem
+         
+         # cosine theorem
+         angle = np.arccos((b**2 + c**2 - a**2) / (2*b*c))
          s= (a+b+c)/2
          area= math.sqrt(s*(s-a)*(s-b)*(s-c))
          error= (2*area)/a
-         if angle <= np.pi/2 and error > 50:  # angle less than 90 degree, treat as fingers
+         
+         # angle less than 90 degree, treat as fingers
+         if angle <= np.pi/2 and error > 50:  
             count2+= 1
             cv2.circle(roi2, far, 4, [0, 0, 255], -1)
       
