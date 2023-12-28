@@ -2,7 +2,7 @@
 
 This is a realtime two player cricket game using hand gesture recognition. Here hand detection is performed using Convex Hull and Defects.  
 
-## How to run ##
+## How to play ##
 
 - Run the P3.py file.
 - Detect the colour of your hands using the trackbar provided to change the HSV colourspace.
