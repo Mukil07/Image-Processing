@@ -4,7 +4,7 @@ This project is to track and predict the trajectory of the object of interest. T
 
 ## How to run ##
 
-- Add the path of Adv-IP.mp4 to the P4.py file.
-- Run the P4.py file.
+- Add the path of Adv-IP.mp4 to the P3.py file.
+- Run the P3.py file.
 
 **Youtube Link**  - https://youtu.be/TWWNTfRfeDI?si=vLtJiPiWGOjvJiTu
