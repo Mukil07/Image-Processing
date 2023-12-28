@@ -13,6 +13,7 @@ h,w,c=Timg.shape
 cv2.imshow('img2',vidF)
 cv2.waitKey(0)
 
+# Using ORB feature detector to find keypoints
 orb= cv2.ORB_create(nfeatures=500)
 kp1, des1= orb.detectAndCompute(Timg,None)
 Timg= cv2.drawKeypoints(Timg,kp1,None)
@@ -28,7 +29,8 @@ while True:
    
    kp2, des2= orb.detectAndCompute(frame,None)
    frame= cv2.drawKeypoints(frame,kp2,None)
-
+   
+   # Brute force matcher is used to compare descriptors of 2 frames
    bf= cv2.BFMatcher()
    matches= bf.knnMatch(des1,des2,k=2)
    good=[]
@@ -36,6 +38,7 @@ while True:
       if m.distance< 0.75*n.distance:
          good.append(m)
 
+   # Plotting the best matches of descriptors
    features= cv2.drawMatches(Timg,kp1,frame,kp2,good,None,flags=2)
    cv2.imshow('final',final)
    
@@ -52,15 +55,17 @@ while True:
          
          pts= np.float32([[0,0],[0,h],[w,h],[w,0]]).reshape(-1,1,2)
          null= []
+
+         # Performing Perspective transformation
          dstf= cv2.perspectiveTransform(pts,matrix)
          img= cv2.polylines(frame,[np.int32(dstf)],True,(255,0,0),3)
-            
          warp= cv2.warpPerspective(vidF,matrix,(frame.shape[1],frame.shape[0]))
 
          mask= np.zeros((frame.shape[0],frame.shape[1]),np.uint8)
          cv2.fillPoly(mask,[np.int32(dstf)],(255,255,255))
          maskInv= cv2.bitwise_not(mask)
-               
+
+         # Overlaying the video Feed on target
          final= cv2.bitwise_and(final,final,mask=maskInv)
          final= cv2.bitwise_or(final,warp)
 
