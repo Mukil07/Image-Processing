@@ -1,6 +1,6 @@
 # Augmented Reality 
 
-Simple AR project using Warp transformation and feature matching. Feature Matching is performed with the help of robust ORB feature detector.
+An AR Video Displayer on a target image on a realtime video feed. It is performed using Warp transformation and feature matching. Feature Matching is executed with the help of robust ORB feature detector.
 
 ## How to run ##
 
